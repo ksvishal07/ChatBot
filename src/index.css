@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* BotForge Design System - Dark & Techy Theme
+   Deep charcoal backgrounds, neon cyan/purple accents, futuristic glow effects
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Core backgrounds - deep charcoal */
+    --background: 220 20% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Cards - slightly elevated surfaces */
+    --card: 220 18% 10%;
+    --card-foreground: 210 40% 98%;
+
+    /* Popovers/dropdowns */
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary - Electric cyan */
+    --primary: 185 100% 50%;
+    --primary-foreground: 220 20% 6%;
+
+    /* Secondary - Deep purple accent */
+    --secondary: 270 60% 50%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted elements */
+    --muted: 220 15% 15%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent - Vibrant purple */
+    --accent: 280 80% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Destructive */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Borders & inputs */
+    --border: 220 15% 20%;
+    --input: 220 15% 18%;
+    --ring: 185 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 220 18% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 185 100% 50%;
+    --sidebar-primary-foreground: 220 20% 6%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 185 100% 50%;
+
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(185 100% 50%), hsl(280 80% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(270 60% 50%), hsl(320 80% 55%));
+    --gradient-dark: linear-gradient(180deg, hsl(220 20% 6%), hsl(220 18% 10%));
+    
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(185 100% 50% / 0.4), 0 0 40px hsl(185 100% 50% / 0.2);
+    --glow-secondary: 0 0 20px hsl(280 80% 60% / 0.4), 0 0 40px hsl(280 80% 60% / 0.2);
+    --glow-accent: 0 0 30px hsl(270 60% 50% / 0.5);
+
+    /* Success/Warning states */
+    --success: 150 80% 45%;
+    --success-foreground: 210 40% 98%;
+    --warning: 45 100% 50%;
+    --warning-foreground: 220 20% 6%;
+  }
+
+  /* Light mode override - keeping dark as default, light for accessibility */
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 185 100% 40%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 270 60% 50%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 280 80% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 185 100% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  /* Glow button effects */
+  .btn-glow {
+    @apply relative overflow-hidden;
+    box-shadow: var(--glow-primary);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: var(--glow-primary), 0 0 60px hsl(185 100% 50% / 0.3);
+  }
+
+  /* Glass morphism card */
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Neon border animation */
+  .neon-border {
+    @apply relative;
+  }
+
+  .neon-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg;
+    padding: 1px;
+    background: var(--gradient-primary);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+
+  /* Animated gradient background */
+  .animated-gradient {
+    background: linear-gradient(
+      45deg,
+      hsl(185 100% 50% / 0.1),
+      hsl(280 80% 60% / 0.1),
+      hsl(270 60% 50% / 0.1),
+      hsl(185 100% 50% / 0.1)
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Floating animation for decorative elements */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+}
+
+@layer utilities {
+  /* Text shadow for glow effects */
+  .text-glow {
+    text-shadow: 0 0 10px hsl(185 100% 50% / 0.8), 0 0 20px hsl(185 100% 50% / 0.5);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 10px hsl(280 80% 60% / 0.8), 0 0 20px hsl(280 80% 60% / 0.5);
+  }
+}
